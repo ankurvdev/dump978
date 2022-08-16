@@ -20,15 +20,16 @@
 #include <stdint.h>
 #include <string.h>
 #include <math.h>
-#include <unistd.h>
+//#include <unistd.h>
 
 #include "uat.h"
 #include "fec.h"
+void dump_raw_message(char updown, uint8_t* data, int len, int rs_errors);
 
 static void make_atan2_table();
 static void read_from_stdin();
 static int check_sync_word(uint16_t *phi, uint64_t pattern, int16_t *center);
-static int process_buffer(uint16_t *phi, int len, uint64_t offset);
+int process_buffer(uint16_t *phi, int len, uint64_t offset);
 static int demod_adsb_frame(uint16_t *phi, uint8_t *to, int *rs_errors);
 static int demod_uplink_frame(uint16_t *phi, uint8_t *to, int *rs_errors);
 static void demod_frame(uint16_t *phi, uint8_t *frame, int bytes, int16_t center_dphi);
@@ -44,7 +45,7 @@ static void handle_uplink_frame(uint64_t timestamp, uint8_t *frame, int rs);
 #ifdef USE_SIGNED_OVERFLOW
 #define phi_difference(from,to) ((int16_t)((to) - (from)))
 #else
-inline int16_t phi_difference(uint16_t from, uint16_t to)
+static int16_t phi_difference(uint16_t from, uint16_t to)
 {
     int32_t difference = to - from; // lies in the range -65535 .. +65535
     if (difference >= 32768)        //   +32768..+65535
@@ -64,7 +65,7 @@ int main(int argc, char **argv)
     return 0;
 }
 
-static void dump_raw_message(char updown, uint8_t *data, int len, int rs_errors)
+static void dump_raw_message1(char updown, uint8_t *data, int len, int rs_errors)
 {
     int i;
 
