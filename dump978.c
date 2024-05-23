@@ -20,7 +20,10 @@
 #include <stdint.h>
 #include <string.h>
 #include <math.h>
-//#include <unistd.h>
+
+#if defined(__unix__)
+#include <unistd.h>
+#endif
 
 #include "uat.h"
 #include "fec.h"
