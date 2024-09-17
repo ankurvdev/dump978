@@ -21,7 +21,7 @@
 #include <string.h>
 #include <math.h>
 
-#if defined(__unix__)
+#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
 #endif
 
