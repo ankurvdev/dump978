@@ -20,6 +20,7 @@ int decode_rs_char(void* p, data_t* data, int* eras_pos, int no_eras)
     data_t* lambda = (data_t*)malloc(NROOTS + 1);
     data_t* s      = (data_t*)malloc(NROOTS); /* Err+Eras Locator poly and syndrome poly */
     data_t* b      = (data_t*)malloc(NROOTS + 1);
+    data_t* si      = (data_t*)malloc(NROOTS + 1);
     data_t* t      = (data_t*)malloc(NROOTS + 1);
     data_t* omega  = (data_t*)malloc(NROOTS + 1);
     data_t* root   = (data_t*)malloc(NROOTS);
